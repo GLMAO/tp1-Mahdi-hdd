@@ -12,7 +12,6 @@
   <version>0.0.1</version>
 
   <name>launcher</name>
-  <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
@@ -29,7 +28,6 @@
       <scope>test</scope>
     </dependency>
     
-    <!-- ICI NOUS DEFINIRONS LA DEPENDANCE VERS LE MODULE LOOKUP -->
     <dependency>
       <groupId>org.emp.gl</groupId>
       <artifactId>timer-service</artifactId>
@@ -52,30 +50,38 @@
 
   <build>
     <plugins>
-       
-            <plugin>
-                 <artifactId>maven-assembly-plugin</artifactId>
-                 <executions>
-                     <execution>
-                          <phase>package</phase>
-                          <goals>
-                              <goal>single</goal>
-                          </goals>
-                      </execution>
-                  </executions>
-                  <configuration>
-                       <!-- ... -->
-                       <archive>
-                           <manifest>
-                                 <mainClass>org.emp.gl.core.launcher.App</mainClass>
-                           </manifest>
-                       </archive>
-                       <descriptorRefs>
-                           <descriptorRef>jar-with-dependencies</descriptorRef>
-                      </descriptorRefs>
-                 </configuration>
-         </plugin>
-   
+      <!-- Plugin pour créer un JAR exécutable -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>org.emp.gl.core.launcher.App</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+      </plugin>
+      
+      <!-- Plugin pour exécuter directement avec mvn exec:java -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <mainClass>org.emp.gl.core.launcher.App</mainClass>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 </project>
